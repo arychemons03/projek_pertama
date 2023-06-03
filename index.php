@@ -5,7 +5,6 @@ $stock = 'stock';
 $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
 
 
-
 ?>
 
 
@@ -68,7 +67,7 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Stock Obat</h1>
+                    <h1 class="mt-4">Dashboard</h1>
 
                     <div class="card">
                         <div class="card-header">
@@ -77,7 +76,7 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
 
                                 <div class="col-sm-11">
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                                        Tambah Stock Obat
+                                        Tambah Obat
                                     </button>
                                 </div>
                                 <div class="col-sm-1">
@@ -97,7 +96,7 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
                                         <th>No</th>
                                         <th>Nama Obat</th>
                                         <th>Deskripsi</th>
-                                        <th>Keterangan</th>
+                                        <th>Tipe Obat</th>
                                         <th>Tanggal Kadaluasa</th>
                                         <th>Stock</th>
                                         <th>barcode</th>
@@ -110,14 +109,17 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
                                     $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
                                     $i = 1;
                                     $tgl_indo = date('d F, Y');
+                                    // $alert = ;
                                     while ($data = mysqli_fetch_array($ambilsemuadatastock)) {
                                         $namaobat = $data['namaobat'];
                                         $deskripsi = $data['deskripsi'];
                                         $keteranganObt = $data['keteranganObt'];
                                         $tgl_kadarluasa = $data['tgl_kadarluasa'];
                                         $stock = $data['stock'];
-                                        $barcode = rand(100000,999999);
+                                        $barcode = $data['barcode'];
                                         $idb = $data['idobat'];
+                                        
+                                        
                                     ?>
 
         
@@ -128,7 +130,6 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
                                             <td><?= $deskripsi; ?></td>
                                             <td><?= $keteranganObt; ?></td>
                                             <td><?= date('d-m-Y', strtotime($data["tgl_kadarluasa"]))?></td>
-                                            
                                             <td><?= $stock; ?></td>
                                             <td>
                                                 <img src="barcode.php?codetype=Code39&size=20&text=<?= $barcode; ?>&print=true" alt="barcode"/>    
@@ -167,6 +168,9 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
                                                             <br>
                                                             <input type="hidden" name="idb" value="<?= $idb; ?>">
                                                             <button type="submit" class="btn btn-primary" name="updateobat">Submit</button>
+                                                            <input type="hidden" class="btn btn-danger" data-toggle="modal" data-target="#alert">
+                                                    Delete
+                                                </input>
                                                         </div>
                                                     </form>
 
@@ -303,7 +307,12 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
                     <br>
                     <input type="text" name="deskripsi" placeholder="Deskripsi obat" class="form-control" required>
                     <br>
-                    <input type="text" name="keteranganObt" class="form-control" placeholder="keterangan obat" required>
+                    <select name="keteranganObt" class="custom-select"placeholder="USIA"> required >usia
+                    <option selected>USIA</option>
+                        <option value="0 - 2 TAHUN">0 - 2 TAHUN</option>
+                        <option value="2 - 5 TAHU">2 - 5 TAHUN</option>
+                    </select>
+                    <br>
                     <br>
                     <input type="text" name="tgl_kadarluasa" class="form-control" onfocus="(this.type='date')" onblur="(this.type='text')" id="date"" placeholder="Tanggal Kadarluasa"  required>
                     <br>
@@ -314,6 +323,7 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
         </div>
     </div>
 </div>
+
 
 <!-- <script>
     $(document).ready(function() {
@@ -370,4 +380,24 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
 </div>
 
 
+<!-- modal alart -->
+<div class="modal fade" id="alert">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Apakah Anda Ingin Keluar ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="document.location='logout.php'">Keluar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+            </div>
+        </div>
+    </div>
+</div>
 </html>

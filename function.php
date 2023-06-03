@@ -10,19 +10,26 @@ if (isset($_POST['addnewobat'])) {
     $deskripsi = $_POST['deskripsi'];
     $keteranganObt = $_POST['keteranganObt'];
     $tgl_kadarluasa = $_POST['tgl_kadarluasa'];
-    $barcode = $_POST['barcode'];
     $barcode = rand(100000,999999);
+    
     // $stock = $_POST['stock'];
-    
-    $addtotable = mysqli_query($conn, "INSERT INTO stock (namaobat, deskripsi, keteranganObt, tgl_kadarluasa, barcode) VALUES('$namaobat', '$deskripsi', '$keteranganObt', '$tgl_kadarluasa', '$barcode')");
-    
-    if ($addtotable) {
-        header('location:index.php');
-    } else {
-        echo 'Gagal Input';
-        header('location:index.php');
+
+    // buat nilai DEFAULT untuk tipe obat
+    if($keteranganObt == "USIA"){
+        $keteranganObt = "0 - 2 TAHUN";
     }
-}
+
+    $ambilsemuadatastock = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM stock WHERE namaobat='$namaobat'"));
+    if ($ambilsemuadatastock > 0){
+        echo "<script>window.alert('nama obat sudah ada')
+        window.location='index.php'</script>";
+        }else {
+            $addtotable = mysqli_query($conn, "INSERT INTO stock (namaobat, deskripsi, keteranganObt, tgl_kadarluasa, barcode) VALUES('$namaobat', '$deskripsi', '$keteranganObt', '$tgl_kadarluasa', '$barcode')");
+            echo "<script>window.alert('DATA SUDAH DISIMPAN')
+    window.location='index.php'</script>";
+        }
+    }
+
 
 //Menambah obat masuk
 if (isset($_POST['obatmasuk'])) {
