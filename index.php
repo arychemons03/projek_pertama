@@ -42,11 +42,11 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
                 <div class="sb-sidenav-menu">
                     <div class="nav" id="nav">
                         <a class="nav-link <?php if ($stock == "stock") echo "active"; ?>" name="stock" href="index.php">
-                            <div class="sb-nav-link-icon" id="stock"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-nav-link-icon" id="stock"><i class="fas fa-home-alt"></i></div>
                             Dashboard
                         </a>
                         <a class="nav-link " href="masuk.php" name="masuk">
-                            <div class="sb-nav-link-icon "><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-nav-link-icon "><i class="fas fa-house-person-return"></i></div>
                             Obat Masuk
                         </a>
                         <a class="nav-link " href="keluar.php" name="keluar">
