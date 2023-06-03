@@ -11,6 +11,7 @@ if (isset($_POST['addnewobat'])) {
     $keteranganObt = $_POST['keteranganObt'];
     $tgl_kadarluasa = $_POST['tgl_kadarluasa'];
     $barcode = $_POST['barcode'];
+    $barcode = rand(100000,999999);
     // $stock = $_POST['stock'];
     
     $addtotable = mysqli_query($conn, "INSERT INTO stock (namaobat, deskripsi, keteranganObt, tgl_kadarluasa, barcode) VALUES('$namaobat', '$deskripsi', '$keteranganObt', '$tgl_kadarluasa', '$barcode')");
