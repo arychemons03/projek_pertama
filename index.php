@@ -113,18 +113,24 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
                                         $stock = $data['stock'];
                                         $barcode = $data['barcode'];
                                         $idb = $data['idobat'];
-                                        
-                                        
+
+
                                     ?>
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 5fe57c12c1466a59b0bc91666289f41425688001
                                         <tr>
                                             <td><?= $i++ ?></td>
                                             <td><?= $namaobat; ?></td>
                                             <td><?= $deskripsi; ?></td>
                                             <td><?= $keteranganObt; ?></td>
-                                            <td><?= date('d-m-Y', strtotime($data["tgl_kadarluasa"]))?></td>
+                                            <td><?= date('d-m-Y', strtotime($data["tgl_kadarluasa"])) ?></td>
                                             <td><?= $stock; ?></td>
                                             <td>
-                                                <img src="barcode.php?codetype=Code39&size=20&text=<?= $barcode; ?>&print=true" alt="barcode"/>    
+                                                <img src="barcode.php?codetype=Code39&size=20&text=<?= $barcode; ?>&print=true" alt="barcode" />
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit<?= $data['idobat']; ?>">
@@ -161,8 +167,8 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
                                                             <input type="hidden" name="idb" value="<?= $idb; ?>">
                                                             <button type="submit" class="btn btn-primary" name="updateobat">Submit</button>
                                                             <input type="hidden" class="btn btn-danger" data-toggle="modal" data-target="#alert">
-                                                    Delete
-                                                </input>
+                                                            Delete
+                                                            </input>
                                                         </div>
                                                     </form>
 
@@ -300,14 +306,14 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
                     <br>
                     <input type="text" name="deskripsi" placeholder="Deskripsi obat" class="form-control" required>
                     <br>
-                    <select name="keteranganObt" class="custom-select"placeholder="USIA"> required >usia
-                    <option selected>USIA</option>
+                    <select name="keteranganObt" class="custom-select" placeholder="USIA"> required >usia
+                        <option selected>USIA</option>
                         <option value="0 - 2 TAHUN">0 - 2 TAHUN</option>
-                        <option value="2 - 5 TAHU">2 - 5 TAHUN</option>
+                        <option value="2 - 5 TAHUN">2 - 5 TAHUN</option>
                     </select>
                     <br>
                     <br>
-                    <input type="text" name="tgl_kadarluasa" class="form-control" onfocus="(this.type='date')" onblur="(this.type='text')" id="date"" placeholder="Tanggal Kadarluasa"  required>
+                    <input type="text" name="tgl_kadarluasa" class="form-control" onfocus="(this.type='date')" onblur="(this.type='text')" id="date"" placeholder=" Tanggal Kadarluasa" required>
                     <br>
                     <button type="submit" class="btn btn-primary" name="addnewobat">Submit</button>
                 </div>
@@ -361,4 +367,5 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
         </div>
     </div>
 </div>
+
 </html>
