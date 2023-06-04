@@ -46,15 +46,16 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
                             Dashboard
                         </a>
                         <a class="nav-link " href="masuk.php" name="masuk">
-                            <div class="sb-nav-link-icon "><i class="fas fa-house-person-return"></i></div>
+                            <div class="sb-nav-link-icon "><i class="fas fa-upload fa-rotate-180"></i></div>
                             Obat Masuk
                         </a>
                         <a class="nav-link " href="keluar.php" name="keluar">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-upload"></i></div>
                             Obat Keluar
                         </a>
-                        <a class="nav-link" href="logout.php" data-toggle="modal" data-target="#log">
-                            Logout
+                        <a class="nav-link" href="logout.php" data-toggle="modal"  data-target="#log"> 
+                            <div class="sb-nav-link-icon"><i class="fas fa-sign-in-alt"></i></div>
+                             Logout
                         </a>
                     </div>
                 </div>
@@ -68,26 +69,20 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
             <main>
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">Dashboard</h1>
-
                     <div class="card">
                         <div class="card-header">
-                            <!-- Button to Open the Modal -->
                             <div class="row">
-
                                 <div class="col-sm-11">
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                                         Tambah Obat
                                     </button>
                                 </div>
                                 <div class="col-sm-1">
-
                                     <a class="d-inline-flex p-2 position-absolute " onclick="window.print()" style="text-align:right;"><i class='fas fa-print mb-3' style="font-size:24px;color:red;"></i></a>
                                 </div>
                             </div>
-
                         </div>
                         <div class="card-header">
-
                         </div>
                         <div class="card-body">
                             <table id="datatablesSimple">
@@ -109,7 +104,7 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
                                     $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
                                     $i = 1;
                                     $tgl_indo = date('d F, Y');
-                                    // $alert = ;
+
                                     while ($data = mysqli_fetch_array($ambilsemuadatastock)) {
                                         $namaobat = $data['namaobat'];
                                         $deskripsi = $data['deskripsi'];
@@ -121,9 +116,6 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
                                         
                                         
                                     ?>
-
-        
-
                                         <tr>
                                             <td><?= $i++ ?></td>
                                             <td><?= $namaobat; ?></td>
@@ -288,6 +280,7 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
     <script src="assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
+    <!-- alert -->
 </body>
 <!-- The Modal -->
 <div class="modal fade" id="myModal">
@@ -325,38 +318,6 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
 </div>
 
 
-<!-- <script>
-    $(document).ready(function() {
-        $('select').on('change', function() {
-            // alert(this.value);
-            let val = this.value
-            $.get("data.php", function(data, status) {
-                let obat = JSON.parse(data);
-                $.each(obat, function(index, value) {
-                    console.log(val === value.namaobat);
-                    console.log($('#stock'));
-                    if (val === value.namaobat) {
-                        $("#add-stock").val(value.stock)
-                        $("#desc").val(value.deskripsi)
-                    }
-                });
-                console.log(obat);
-            })
-            // $.ajax({
-            //     type: 'GET',
-            //     url: 'data.php',
-            //     dataType: "json",
-            //     success: function(data) {
-            //         console.log(data.status);
-            //     },
-            //     error: 
-            // })
-        });
-    });
-</script> -->
-
-
-<!-- query with -->
 
 <!-- The Modal -->
 <div class="modal fade" id="log">
