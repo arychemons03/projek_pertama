@@ -56,6 +56,10 @@ if (isset($_GET['added'])) {
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-upload"></i></div>
                             Obat Keluar
                         </a>
+                        <a class="nav-link" href="retur.php">
+                            <div class="sb-nav-link-icon"><i class="fa fa-recycle" aria-hidden="true"></i></div>
+                            Obat Retur
+                        </a>
                         <a class="nav-link" href="logout.php" data-toggle="modal" data-target="#log">
                             <i class="fa-solid fa-arrow-left mr-2"></i>Logout
                         </a>
