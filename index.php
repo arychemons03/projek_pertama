@@ -2,8 +2,17 @@
 require 'function.php';
 require 'cek.php';
 $stock = 'stock';
-$ambilsemuadatastock = mysqli_query($conn, "select * from stock");
+$ambilsemuadatastock = mysqli_query($conn, "SELECT * FROM stock");
+// var_dump($_GET['added']);
 
+if (isset($_GET['added'])) {
+    $success = true;
+} else {
+    $success = false;
+}
+
+// var_dump($isadded);
+// die;
 
 ?>
 
@@ -46,15 +55,15 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
                             Dashboard
                         </a>
                         <a class="nav-link " href="masuk.php" name="masuk">
-                            <div class="sb-nav-link-icon "><i class="fas fa-house-person-return"></i></div>
+                            <div class="sb-nav-link-icon "><i class="fa-solid fa-download"></i></div>
                             Obat Masuk
                         </a>
                         <a class="nav-link " href="keluar.php" name="keluar">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-upload"></i></div>
                             Obat Keluar
                         </a>
                         <a class="nav-link" href="logout.php" data-toggle="modal" data-target="#log">
-                            Logout
+                            <i class="fa-solid fa-arrow-left mr-2"></i>Logout
                         </a>
                     </div>
                 </div>
@@ -90,6 +99,16 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
 
                         </div>
                         <div class="card-body">
+                            <div id="message-alert" class="alert <?php if (!$success) echo 'd-none';
+                                                                    else if ($success && $_GET['added'] === 'true') echo 'alert-success';
+                                                                    else if ($success && $_GET['added'] === 'false') echo 'alert-danger'; ?>  alert-dismissible fade show" role="alert">
+                                <?php
+                                if ($success && $_GET['added'] === 'true') echo 'Data Obat Berhasil Disimpan!';
+                                else if ($success && $_GET['added'] === 'false') echo 'Nama Obat Sudah Ada!';
+                                ?>
+
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>
@@ -97,13 +116,12 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
                                         <th>Nama Obat</th>
                                         <th>Deskripsi</th>
                                         <th>Tipe Obat</th>
-                                        <th>Tanggal Kadaluasa</th>
+                                        <th>Tanggal Kadaluarsa</th>
                                         <th>Stock</th>
                                         <th>barcode</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
                                     <?php
                                     $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
@@ -168,9 +186,9 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
                                                             <br>
                                                             <input type="hidden" name="idb" value="<?= $idb; ?>">
                                                             <button type="submit" class="btn btn-primary" name="updateobat">Submit</button>
-                                                            <input type="hidden" class="btn btn-danger" data-toggle="modal" data-target="#alert">
+                                                            <!-- <input type="hidden" class="btn btn-danger" data-toggle="modal" data-target="#alert">
                                                             Delete
-                                                            </input>
+                                                            </input> -->
                                                         </div>
                                                     </form>
 
@@ -196,7 +214,7 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
                                                             <input type="hidden" name="idb" value="<?= $idb; ?>">
                                                             <br>
                                                             <br>
-                                                            <button type="submit" class="btn btn-danger" name="hapusobat">Submit</button>
+                                                            <button type="submit" class="btn btn-danger" name="hapusobat">Ya, Hapus</button>
                                                         </div>
                                                     </form>
 
@@ -325,35 +343,22 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
 </div>
 
 
-<!-- <script>
-    $(document).ready(function() {
-        $('select').on('change', function() {
-            // alert(this.value);
-            let val = this.value
-            $.get("data.php", function(data, status) {
-                let obat = JSON.parse(data);
-                $.each(obat, function(index, value) {
-                    console.log(val === value.namaobat);
-                    console.log($('#stock'));
-                    if (val === value.namaobat) {
-                        $("#add-stock").val(value.stock)
-                        $("#desc").val(value.deskripsi)
-                    }
-                });
-                console.log(obat);
-            })
-            // $.ajax({
-            //     type: 'GET',
-            //     url: 'data.php',
-            //     dataType: "json",
-            //     success: function(data) {
-            //         console.log(data.status);
-            //     },
-            //     error: 
-            // })
-        });
-    });
-</script> -->
+<script>
+    // $(document).ready(function() {
+    //     $.get("index.php", function(data, status) {
+    //         let added = JSON.parse(data);
+    // $.each(obat, function(index, value) {
+    //     console.log(val === value.namaobat);
+    //     console.log($('#stock'));
+    //     if (val === value.namaobat) {
+    //         $("#add-stock").val(value.stock)
+    //         $("#desc").val(value.deskripsi)
+    //     }
+    // });
+    // console.log(data);
+    // })
+    // });
+</script>
 
 
 <!-- query with -->
@@ -381,24 +386,6 @@ $ambilsemuadatastock = mysqli_query($conn, "select * from stock");
 
 
 <!-- modal alart -->
-<div class="modal fade" id="alert">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Apakah Anda Ingin Keluar ?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="document.location='logout.php'">Keluar</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 </html>

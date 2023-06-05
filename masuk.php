@@ -2,6 +2,13 @@
 require 'function.php';
 require 'cek.php';
 $masuk = 'masuk';
+
+if (isset($_GET['added'])) {
+    $success = true;
+} else {
+    $success = false;
+}
+
 ?>
 
 
@@ -38,19 +45,19 @@ $masuk = 'masuk';
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <a class="nav-link" href="index.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Stock Obat
+                            <div class="sb-nav-link-icon"><i class="fas fa-home-alt"></i></i></div>
+                            Dashboard
                         </a>
                         <a class="nav-link <?php if ($masuk == "masuk") echo "active"; ?>" href="masuk.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-download"></i></div>
                             Obat Masuk
                         </a>
                         <a class="nav-link" href="keluar.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-upload"></i></div>
                             Obat Keluar
                         </a>
                         <a class="nav-link" href="logout.php" data-toggle="modal" data-target="#log">
-                            Logout
+                            <i class="fa-solid fa-arrow-left mr-2"></i>Logout
                         </a>
                     </div>
                 </div>
@@ -74,6 +81,17 @@ $masuk = 'masuk';
                             </button>
                         </div>
                         <div class="card-body">
+                            <div id="message-alert" class="alert 
+                            <?php if (!$success) echo 'd-none';
+                            else if ($success && $_GET['added'] === 'true') echo 'alert-success';
+                            else if ($success && $_GET['added'] === 'false') echo 'alert-danger'; ?>  alert-dismissible fade show" role="alert">
+                                <?php
+                                if ($success && $_GET['added'] === 'true') echo 'Data Obat Masuk Berhasil Disimpan!';
+                                else if ($success && $_GET['added'] === 'false') echo 'Nama Obat Masuk Sudah Ada!';
+                                ?>
+
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>

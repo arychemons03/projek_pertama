@@ -10,25 +10,23 @@ if (isset($_POST['addnewobat'])) {
     $deskripsi = $_POST['deskripsi'];
     $keteranganObt = $_POST['keteranganObt'];
     $tgl_kadarluasa = $_POST['tgl_kadarluasa'];
-    $barcode = rand(100000,999999);
-    
+    $barcode = rand(100000, 999999);
+
     // $stock = $_POST['stock'];
 
     // buat nilai DEFAULT untuk tipe obat
-    if($keteranganObt == "USIA"){
+    if ($keteranganObt == "USIA") {
         $keteranganObt = "0 - 2 TAHUN";
     }
 
-    $ambilsemuadatastock = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM stock WHERE namaobat='$namaobat'"));
-    if ($ambilsemuadatastock > 0){
-        echo "<script>window.alert('nama obat sudah ada')
-        window.location='index.php'</script>";
-        }else {
-            $addtotable = mysqli_query($conn, "INSERT INTO stock (namaobat, deskripsi, keteranganObt, tgl_kadarluasa, barcode) VALUES('$namaobat', '$deskripsi', '$keteranganObt', '$tgl_kadarluasa', '$barcode')");
-            echo "<script>window.alert('DATA SUDAH DISIMPAN')
-    window.location='index.php'</script>";
-        }
+    $ambilsemuadatastock = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM stock WHERE namaobat='$namaobat'"));
+    if ($ambilsemuadatastock > 0) {
+        header("location: index.php?added=false");
+    } else {
+        $addtotable = mysqli_query($conn, "INSERT INTO stock (namaobat, deskripsi, keteranganObt, tgl_kadarluasa, barcode) VALUES('$namaobat', '$deskripsi', '$keteranganObt', '$tgl_kadarluasa', '$barcode')");
+        header("location: index.php?added=true");
     }
+}
 
 
 //Menambah obat masuk
@@ -40,17 +38,23 @@ if (isset($_POST['obatmasuk'])) {
     $cekstockobat = mysqli_query($conn, "SELECT * FROM stock WHERE idobat='$obatnya'");
     $ambildatanya = mysqli_fetch_array($cekstockobat);
 
-    $stocksekarang = $ambildatanya['stock'];
-    $tambahkanstockbaranydenganquantity = $stocksekarang + $qty;
-
-
-    $addtomasuk = mysqli_query($conn, "INSERT INTO masuk (idobat, keterangan, qty) VALUES('$obatnya','$penerima','$qty')");
-    $updatestockmasuk = mysqli_query($conn, "UPDATE stock SET stock='$tambahkanstockbaranydenganquantity' WHERE idobat='$obatnya'");
-    if ($addtomasuk && $updatestockmasuk) {
-        header('location:masuk.php');
+    $cekstockobatmasuk = $cekstockobat = mysqli_query($conn, "SELECT * FROM masuk WHERE idobat='$obatnya'");
+    if (mysqli_num_rows($cekstockobatmasuk) > 0) {
+        header("location: masuk.php?added=false");
     } else {
-        echo 'Gagal';
-        header('location:masuk.php');
+        $stocksekarang = $ambildatanya['stock'];
+        $tambahkanstockbaranydenganquantity = $stocksekarang + $qty;
+
+
+        $addtomasuk = mysqli_query($conn, "INSERT INTO masuk (idobat, keterangan, qty) VALUES('$obatnya','$penerima','$qty')");
+        $updatestockmasuk = mysqli_query($conn, "UPDATE stock SET stock='$tambahkanstockbaranydenganquantity' WHERE idobat='$obatnya'");
+        header("location: masuk.php?added=true");
+        // if ($addtomasuk && $updatestockmasuk) {
+        //     header('location:masuk.php');
+        // } else {
+        //     echo 'Gagal';
+        //     header('location:masuk.php');
+        // }
     }
 }
 
@@ -62,19 +66,25 @@ if (isset($_POST['addobatkeluar'])) {
     $qty = $_POST['qty'];
 
     $cekstockobat = mysqli_query($conn, "SELECT * FROM stock WHERE idobat='$obatnya'");
+    $cekstockobatkeluar = mysqli_query($conn, "SELECT * FROM keluar WHERE idobat='$obatnya'");
     $ambildatanya = mysqli_fetch_array($cekstockobat);
 
-    $stocksekarang = $ambildatanya['stock'];
-    $tambahkanstockbaranydenganquantity = $stocksekarang - $qty;
-
-
-    $addtokeluar = mysqli_query($conn, "INSERT INTO keluar (idobat, penerima, qty) VALUES('$obatnya','$penerima','$qty')");
-    $updatestockmasuk = mysqli_query($conn, "UPDATE stock SET stock='$tambahkanstockbaranydenganquantity' WHERE idobat='$obatnya'");
-    if ($addtokeluar && $updatestockmasuk) {
-        header('location:keluar.php');
+    if (mysqli_num_rows($cekstockobatkeluar) > 0) {
+        header("location: keluar.php?added=false");
     } else {
-        echo 'Gagal';
-        header('location:keluar.php');
+        $stocksekarang = $ambildatanya['stock'];
+        $tambahkanstockbaranydenganquantity = $stocksekarang - $qty;
+
+
+        $addtokeluar = mysqli_query($conn, "INSERT INTO keluar (idobat, penerima, qty) VALUES('$obatnya','$penerima','$qty')");
+        $updatestockmasuk = mysqli_query($conn, "UPDATE stock SET stock='$tambahkanstockbaranydenganquantity' WHERE idobat='$obatnya'");
+        header("location: keluar.php?added=true");
+        // if ($addtokeluar && $updatestockmasuk) {
+        //     header('location:keluar.php');
+        // } else {
+        //     echo 'Gagal';
+        //     header('location:keluar.php');
+        // }
     }
 }
 
