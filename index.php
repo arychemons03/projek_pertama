@@ -55,15 +55,15 @@ if (isset($_GET['added'])) {
                             Dashboard
                         </a>
                         <a class="nav-link " href="masuk.php" name="masuk">
-                            <div class="sb-nav-link-icon "><i class="fas fa-house-person-return"></i></div>
+                            <div class="sb-nav-link-icon "><i class="fas fa-download"></i></div>
                             Obat Masuk
                         </a>
                         <a class="nav-link " href="keluar.php" name="keluar">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-upload"></i></div>
                             Obat Keluar
                         </a>
                         <a class="nav-link" href="logout.php" data-toggle="modal" data-target="#log">
-                            Logout
+                            <i class="fa-solid fa-arrow-left mr-2"></i>Logout
                         </a>
                     </div>
                 </div>
@@ -133,91 +133,25 @@ if (isset($_GET['added'])) {
 
 
                                     ?>
-                                        <<<<<<< HEAD=======>>>>>>> 5fe57c12c1466a59b0bc91666289f41425688001
-                                            <tr>
-                                                <td><?= $i++ ?></td>
-                                                <td><?= $namaobat; ?></td>
-                                                <td><?= $deskripsi; ?></td>
-                                                <td><?= $keteranganObt; ?></td>
-                                                <td><?= date('d-m-Y', strtotime($data["tgl_kadarluasa"])) ?></td>
-                                                <td><?= $stock; ?></td>
-                                                <td>
-                                                    <img src="barcode.php?codetype=Code39&size=20&text=<?= $barcode; ?>&print=true" alt="barcode" />
-                                                </td>
-                                                <td>
-                                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit<?= $data['idobat']; ?>">
-                                                        Edit
-                                                    </button>
-                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete<?= $data['idobat']; ?>">
-                                                        Delete
-                                                    </button>
-                                                </td>
-                                            </tr>
-
-                                            <!-- Edit modal -->
-                                            <div class="modal fade" id="edit<?= $idb; ?>">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-
-                                                        <!-- Modal Header -->
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title">Edit </h4>
-                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                        </div>
-
-                                                        <!-- Modal body -->
-                                                        <form method="post">
-                                                            <div class="modal-body">
-                                                                <input type="text" name="namaobat" value="<?= $namaobat; ?>" class="form-control">
-                                                                <br>
-                                                                <input type="text" name="deskripsi" value="<?= $deskripsi; ?>" class="form-control">
-                                                                <br>
-                                                                <input type="text" name="keteranganObt" value="<?= $keteranganObt; ?>" class="form-control">
-                                                                <br>
-                                                                <input type="date" name="tgl_kadarluasa" value="<?= $tgl_kadarluasa; ?>" class="form-control" placeholder="tanggal kadarluasa">
-                                                                <br>
-                                                                <input type="hidden" name="idb" value="<?= $idb; ?>">
-                                                                <button type="submit" class="btn btn-primary" name="updateobat">Submit</button>
-                                                                <!-- <input type="hidden" class="btn btn-danger" data-toggle="modal" data-target="#alert">
-                                                            Delete
-                                                            </input> -->
-                                                            </div>
-                                                        </form>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Delete modal -->
-                                            <div class="modal fade" id="delete<?= $idb; ?>">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-
-                                                        <!-- Modal Header -->
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title">Hapus?</h4>
-                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                        </div>
-
-                                                        <!-- Modal body -->
-                                                        <form method="post">
-                                                            <div class="modal-body">
-                                                                Apakah Anda Yakin Ingin Menghapus <?= $namaobat; ?>?
-                                                                <input type="hidden" name="idb" value="<?= $idb; ?>">
-                                                                <br>
-                                                                <br>
-                                                                <button type="submit" class="btn btn-danger" name="hapusobat">Ya, Hapus</button>
-                                                            </div>
-                                                        </form>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        <?php
-                                    };
-
-                                        ?>
+                                        <tr>
+                                            <td><?= $i++ ?></td>
+                                            <td><?= $namaobat; ?></td>
+                                            <td><?= $deskripsi; ?></td>
+                                            <td><?= $keteranganObt; ?></td>
+                                            <td><?= date('d-m-Y', strtotime($data["tgl_kadarluasa"])) ?></td>
+                                            <td><?= $stock; ?></td>
+                                            <td>
+                                                <img src="barcode.php?codetype=Code39&size=20&text=<?= $barcode; ?>&print=true" alt="barcode" />
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit<?= $data['idobat']; ?>">
+                                                    Edit
+                                                </button>
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete<?= $data['idobat']; ?>">
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
 
                                         <!-- Edit modal -->
                                         <div class="modal fade" id="edit<?= $idb; ?>">
@@ -237,8 +171,15 @@ if (isset($_GET['added'])) {
                                                             <br>
                                                             <input type="text" name="deskripsi" value="<?= $deskripsi; ?>" class="form-control">
                                                             <br>
+                                                            <input type="text" name="keteranganObt" value="<?= $keteranganObt; ?>" class="form-control">
+                                                            <br>
+                                                            <input type="date" name="tgl_kadarluasa" value="<?= $tgl_kadarluasa; ?>" class="form-control" placeholder="tanggal kadarluasa">
+                                                            <br>
                                                             <input type="hidden" name="idb" value="<?= $idb; ?>">
                                                             <button type="submit" class="btn btn-primary" name="updateobat">Submit</button>
+                                                            <!-- <input type="hidden" class="btn btn-danger" data-toggle="modal" data-target="#alert">
+                                                            Delete
+                                                            </input> -->
                                                         </div>
                                                     </form>
 
@@ -264,13 +205,71 @@ if (isset($_GET['added'])) {
                                                             <input type="hidden" name="idb" value="<?= $idb; ?>">
                                                             <br>
                                                             <br>
-                                                            <button type="submit" class="btn btn-danger" name="hapusobat">Submit</button>
+                                                            <button type="submit" class="btn btn-danger" name="hapusobat">Ya, Hapus</button>
                                                         </div>
                                                     </form>
 
                                                 </div>
                                             </div>
                                         </div>
+
+                                    <?php
+                                    };
+
+                                    ?>
+
+                                    <!-- Edit modal -->
+                                    <div class="modal fade" id="edit<?= $idb; ?>">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Edit </h4>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+
+                                                <!-- Modal body -->
+                                                <form method="post">
+                                                    <div class="modal-body">
+                                                        <input type="text" name="namaobat" value="<?= $namaobat; ?>" class="form-control">
+                                                        <br>
+                                                        <input type="text" name="deskripsi" value="<?= $deskripsi; ?>" class="form-control">
+                                                        <br>
+                                                        <input type="hidden" name="idb" value="<?= $idb; ?>">
+                                                        <button type="submit" class="btn btn-primary" name="updateobat">Submit</button>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Delete modal -->
+                                    <div class="modal fade" id="delete<?= $idb; ?>">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Hapus?</h4>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+
+                                                <!-- Modal body -->
+                                                <form method="post">
+                                                    <div class="modal-body">
+                                                        Apakah Anda Yakin Ingin Menghapus <?= $namaobat; ?>?
+                                                        <input type="hidden" name="idb" value="<?= $idb; ?>">
+                                                        <br>
+                                                        <br>
+                                                        <button type="submit" class="btn btn-danger" name="hapusobat">Submit</button>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 </tbody>
                             </table>
                         </div>
