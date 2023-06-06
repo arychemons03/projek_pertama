@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2023 at 10:20 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Waktu pembuatan: 06 Jun 2023 pada 17.10
+-- Versi server: 10.4.27-MariaDB
+-- Versi PHP: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `keluar`
+-- Struktur dari tabel `keluar`
 --
 
 CREATE TABLE `keluar` (
@@ -36,16 +36,16 @@ CREATE TABLE `keluar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `keluar`
+-- Dumping data untuk tabel `keluar`
 --
 
 INSERT INTO `keluar` (`idkeluar`, `idobat`, `tanggal`, `penerima`, `qty`) VALUES
-(22, 29, '2023-05-21 08:16:03', 'asdasd', 56);
+(59, 106, '2023-06-06 15:07:55', 'Rifqi', 400);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `login`
+-- Struktur dari tabel `login`
 --
 
 CREATE TABLE `login` (
@@ -55,7 +55,7 @@ CREATE TABLE `login` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `login`
+-- Dumping data untuk tabel `login`
 --
 
 INSERT INTO `login` (`iduser`, `email`, `password`) VALUES
@@ -65,7 +65,7 @@ INSERT INTO `login` (`iduser`, `email`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `masuk`
+-- Struktur dari tabel `masuk`
 --
 
 CREATE TABLE `masuk` (
@@ -77,88 +77,124 @@ CREATE TABLE `masuk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `masuk`
+-- Dumping data untuk tabel `masuk`
 --
 
 INSERT INTO `masuk` (`idmasuk`, `idobat`, `tanggal`, `keterangan`, `qty`) VALUES
-(28, 27, '2023-05-21 07:39:13', 'asdas', 5);
+(61, 106, '2023-06-06 15:07:47', 'Valentino Rossi', 1000);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `stock`
+-- Struktur dari tabel `retur`
+--
+
+CREATE TABLE `retur` (
+  `idretur` int(11) NOT NULL,
+  `idobat` int(11) NOT NULL,
+  `tanggal` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `status` varchar(30) NOT NULL,
+  `keterangan` varchar(30) NOT NULL,
+  `qty` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `retur`
+--
+
+INSERT INTO `retur` (`idretur`, `idobat`, `tanggal`, `status`, `keterangan`, `qty`) VALUES
+(21, 106, '2023-06-06 15:08:02', '', 'obatnya remuk', 100);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `stock`
 --
 
 CREATE TABLE `stock` (
   `idobat` int(11) NOT NULL,
   `namaobat` varchar(25) NOT NULL,
   `deskripsi` varchar(25) NOT NULL,
+  `keteranganObt` varchar(25) NOT NULL,
+  `tgl_kadarluasa` varchar(25) NOT NULL,
+  `barcode` varchar(25) NOT NULL,
   `stock` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `stock`
+-- Dumping data untuk tabel `stock`
 --
 
-INSERT INTO `stock` (`idobat`, `namaobat`, `deskripsi`, `stock`) VALUES
-(27, 'Panadol', 'Obat sakit kepala', 25),
-(29, 'Mixagrip', 'Obat Flu dan Batuk', 0);
+INSERT INTO `stock` (`idobat`, `namaobat`, `deskripsi`, `keteranganObt`, `tgl_kadarluasa`, `barcode`, `stock`) VALUES
+(106, 'Mixagrip', 'Obat Lupa Segalanya', '0 - 2 TAHUN', '2023-06-30', '509301', 600);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `keluar`
+-- Indeks untuk tabel `keluar`
 --
 ALTER TABLE `keluar`
   ADD PRIMARY KEY (`idkeluar`);
 
 --
--- Indexes for table `login`
+-- Indeks untuk tabel `login`
 --
 ALTER TABLE `login`
   ADD PRIMARY KEY (`iduser`);
 
 --
--- Indexes for table `masuk`
+-- Indeks untuk tabel `masuk`
 --
 ALTER TABLE `masuk`
   ADD PRIMARY KEY (`idmasuk`);
 
 --
--- Indexes for table `stock`
+-- Indeks untuk tabel `retur`
+--
+ALTER TABLE `retur`
+  ADD PRIMARY KEY (`idretur`);
+
+--
+-- Indeks untuk tabel `stock`
 --
 ALTER TABLE `stock`
   ADD PRIMARY KEY (`idobat`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `keluar`
+-- AUTO_INCREMENT untuk tabel `keluar`
 --
 ALTER TABLE `keluar`
-  MODIFY `idkeluar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `idkeluar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
--- AUTO_INCREMENT for table `login`
+-- AUTO_INCREMENT untuk tabel `login`
 --
 ALTER TABLE `login`
   MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `masuk`
+-- AUTO_INCREMENT untuk tabel `masuk`
 --
 ALTER TABLE `masuk`
-  MODIFY `idmasuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `idmasuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
--- AUTO_INCREMENT for table `stock`
+-- AUTO_INCREMENT untuk tabel `retur`
+--
+ALTER TABLE `retur`
+  MODIFY `idretur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT untuk tabel `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `idobat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `idobat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

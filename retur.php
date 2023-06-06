@@ -95,13 +95,13 @@ if (isset($_GET['added'])) {
                                     ?>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
-                            <!-- <table id="datatablesSimple">
+                            <table id="datatablesSimple">
                                 <thead>
                                     <tr>
                                         <th>Tanggal</th>
                                         <th>Nama Obat</th>
                                         <th>Jumlah</th>
-                                        <th>Keterangan</th>
+                                        <th>keterangan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -109,10 +109,10 @@ if (isset($_GET['added'])) {
                                 <tbody>
 
                                     <?php
-                                    $ambilsemuadatastock = mysqli_query($conn, "select * from masuk m, stock s where s.idobat = m.idobat");
+                                    $ambilsemuadatastock = mysqli_query($conn, "select * from retur m, stock s where s.idobat = m.idobat");
                                     while ($data = mysqli_fetch_array($ambilsemuadatastock)) {
                                         $idb = $data['idobat'];
-                                        $idm = $data['idmasuk'];
+                                        $idr = $data['idretur'];
                                         $tanggal = $data['tanggal'];
                                         $namaobat = $data['namaobat'];
                                         $qty = $data['qty'];
@@ -125,17 +125,17 @@ if (isset($_GET['added'])) {
                                             <td><?= $qty; ?></td>
                                             <td><?= $keterangan; ?></td>
                                             <td>
-                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit<?= $idm; ?>">
+                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit<?= $idr; ?>">
                                                     Edit
                                                 </button>
-                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete<?= $idm; ?>">
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete<?= $idr; ?>">
                                                     Delete
                                                 </button>
                                             </td>
                                         </tr>
 
                                         <!-- Edit modal -->
-                                        <div class="modal fade" id="edit<?= $idm; ?>">
+                                        <div class="modal fade" id="edit<?= $idr; ?>">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
 
@@ -153,8 +153,8 @@ if (isset($_GET['added'])) {
                                                             <input type="number" name="qty" value="<?= $qty; ?>" class="form-control" required>
                                                             <br>
                                                             <input type="hidden" name="idb" value="<?= $idb; ?>">
-                                                            <input type="hidden" name="idm" value="<?= $idm; ?>">
-                                                            <button type="submit" class="btn btn-primary" name="updateobatmasuk">Submit</button>
+                                                            <input type="hidden" name="idr" value="<?= $idr; ?>">
+                                                            <button type="submit" class="btn btn-primary" name="updateobatretur">Submit</button>
                                                         </div>
                                                     </form>
 
@@ -163,7 +163,7 @@ if (isset($_GET['added'])) {
                                         </div>
 
                                         <!-- Delete modal -->
-                                        <div class="modal fade" id="delete<?= $idm; ?>">
+                                        <div class="modal fade" id="delete<?= $idr; ?>">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
 
@@ -179,10 +179,10 @@ if (isset($_GET['added'])) {
                                                             Apakah Anda Yakin Ingin Menghapus <?= $namaobat; ?>?
                                                             <input type="hidden" name="idb" value="<?= $idb; ?>">
                                                             <input type="hidden" name="kty" value="<?= $qty; ?>">
-                                                            <input type="hidden" name="idm" value="<?= $idm; ?>">
+                                                            <input type="hidden" name="idr" value="<?= $idr; ?>">
                                                             <br>
                                                             <br>
-                                                            <button type="submit" class="btn btn-danger" name="hapusobatmasuk">Submit</button>
+                                                            <button type="submit" class="btn btn-danger" name="hapusobatretur">Submit</button>
                                                         </div>
                                                     </form>
 
@@ -195,7 +195,7 @@ if (isset($_GET['added'])) {
                                     ?>
 
                                 </tbody>
-                            </table> -->
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -257,9 +257,9 @@ if (isset($_GET['added'])) {
                     <br>
                     <input type="number" name="qty" class="form-control" placeholder="Quantity" required>
                     <br>
-                    <input type="text" name="penerima" placeholder="Penerima" class="form-control" required>
+                    <input type="text" name="keterangan" placeholder="Penerima" class="form-control" required>
                     <br>
-                    <button type="submit" class="btn btn-primary" name="obatmasuk">Submit</button>
+                    <button type="submit" class="btn btn-primary" name="returbarang">Submit</button>
                 </div>
             </form>
 
