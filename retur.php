@@ -89,10 +89,10 @@ if (isset($_GET['added'])) {
                                     <?php if (!$success) echo 'd-none';
                                     else if ($success && $_GET['added'] === 'true') echo 'alert-success';
                                     else if ($success && $_GET['added'] === 'false') echo 'alert-danger'; ?>  alert-dismissible fade show" role="alert">
-                                    <?php
-                                    if ($success && $_GET['added'] === 'true') echo 'Data Obat Masuk Berhasil Disimpan!';
-                                    else if ($success && $_GET['added'] === 'false') echo 'Nama Obat Masuk Sudah Ada!';
-                                    ?>
+                                <?php
+                                if ($success && $_GET['added'] === 'true') echo 'Data Obat Retur Berhasil Disimpan!';
+                                else if ($success && $_GET['added'] === 'false') echo 'Nama Obat Retur Sudah Ada!';
+                                ?>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                             <table id="datatablesSimple">

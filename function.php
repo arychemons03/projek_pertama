@@ -73,7 +73,6 @@ if (isset($_POST['addobatkeluar'])) {
         $addtokeluar = mysqli_query($conn, "INSERT INTO keluar (idobat, penerima, qty) VALUES('$obatnya','$penerima','$qty')");
         $updatestockmasuk = mysqli_query($conn, "UPDATE stock SET stock='$tambahkanstockbaranydenganquantity' WHERE idobat='$obatnya'");
         header("location: keluar.php?added=true");
-        
     }
 }
 
@@ -248,17 +247,17 @@ if (isset($_POST['returbarang'])) {
     $ambildataqtykeluar = mysqli_fetch_array($cekstockkeluar);
     $ambildataqty = $ambildataqtykeluar['qty'];
     $ambildataqtyretur = mysqli_fetch_assoc($cekstockretur);
-    
-    
+
+
     if (mysqli_num_rows($cekstockretur) > 0) {
         header("location: retur.php?added=false");
     } else {
         $stocksekarang = $ambildatanya['stock'];
-        $tambahkanstockbaranydenganquantity = $stocksekarang + $qty;
+        $tambahkanstockbaranydenganquantity = $stocksekarang - $qty;
 
         $a = $ambildataqtykeluar['qty'];
         $b = $qty;
-        $c = $a - $b ;
+        $c = $a - $b;
 
         $addtoretur = mysqli_query($conn, "INSERT INTO retur (idobat, keterangan, qty) VALUES('$obatnya','$keterangan','$qty')");
         $updatestock = mysqli_query($conn, "UPDATE stock SET stock='$tambahkanstockbaranydenganquantity' WHERE idobat='$obatnya'");
@@ -270,7 +269,6 @@ if (isset($_POST['returbarang'])) {
 // mengubah data obat retur
 if (isset($_POST['updateobatretur'])) {
     $idb = $_POST['idb'];
-    $idk = $_POST['idk'];
     $idr = $_POST['idr'];
     $deskripsi = $_POST['keterangan'];
     $qty = $_POST['qty'];
@@ -279,9 +277,9 @@ if (isset($_POST['updateobatretur'])) {
     $stocknya = mysqli_fetch_array($lihatstock);
     $stockskrg = $stocknya['stock'];
 
-    $cekstockkeluar = mysqli_query($conn,"SELECT * FROM keluar WHERE idkeluar='$idk'");
-    $stockkeluar = mysqli_fetch_array($cekstockkeluar);
-    $stksekarang = $stockkeluar['qty'];
+    // $cekstockkeluar = mysqli_query($conn, "SELECT * FROM keluar WHERE idkeluar='$idk'");
+    // $stockkeluar = mysqli_fetch_array($cekstockkeluar);
+    // $stksekarang = $stockkeluar['qty'];
 
     $qtyskrg = mysqli_query($conn, "SELECT * FROM retur WHERE idretur='$idr'");
     $qtynya = mysqli_fetch_array($qtyskrg);
@@ -289,12 +287,12 @@ if (isset($_POST['updateobatretur'])) {
 
 
 
-    if ($qty > $qtyskrg) {
+    if ($qty >= $qtyskrg) {
         $selisih = $qty - $qtyskrg;
-        $kurangin = $stockskrg + $selisih;
+        $kurangin = $stockskrg - $selisih;
         $keluar = $qty + $stksekarang;
         $kurangistocknya = mysqli_query($conn, "UPDATE stock SET stock= '$kurangin' WHERE idobat='$idb'");
-        $qtykeluar = mysqli_query($conn, "UPDATE keluar SET qty='$qty', keterangan='$deskripsi' WHERE idkeluar='$idk'");
+        // $qtykeluar = mysqli_query($conn, "UPDATE keluar SET qty='$qty', keterangan='$deskripsi' WHERE idobat='$idb'");
         $updatenya = mysqli_query($conn, "UPDATE retur SET qty='$qty', keterangan='$deskripsi' WHERE idretur='$idr'");
         if ($kurangistocknya && $updatenya && $qtykeluar) {
             header('location:retur.php');
@@ -304,12 +302,12 @@ if (isset($_POST['updateobatretur'])) {
         }
     } else {
         $selisih = $qtyskrg - $qty;
-        $kurangin = $stockskrg - $selisih;
-        $keluar = $stksekarang + $qty;
+        $kurangin = $stockskrg + $selisih;
+        // $keluar = $stksekarang + $qty;
         $kurangistocknya = mysqli_query($conn, "UPDATE stock SET stock = '$kurangin' WHERE idobat = '$idb'");
-        $qtykeluar = mysqli_query($conn, "UPDATE keluar SET qty='$qty', keterangan='$deskripsi' WHERE idkeluar='$idk'");
+        // $qtykeluar = mysqli_query($conn, "UPDATE keluar SET qty='$qty', keterangan='$deskripsi' WHERE idkeluar='$idk'");
         $updatenya = mysqli_query($conn, "UPDATE retur SET qty = '$qty', keterangan = '$deskripsi' WHERE idretur = '$idr'");
-        if ($kurangistocknya && $updatenya && $qtykeluar) {
+        if ($kurangistocknya && $updatenya) {
             header('location:retur.php');
         } else {
             echo 'Gagal';
@@ -329,7 +327,7 @@ if (isset($_POST['hapusobatretur'])) {
     $data = mysqli_fetch_array($getdatastock);
     $stok = $data['stock'];
 
-    $selisih = $stok - $qty;
+    $selisih = $stok + $qty;
 
     $update = mysqli_query($conn, "UPDATE stock SET stock='$selisih' WHERE idobat='$idb'");
     $hapusdata = mysqli_query($conn, "delete FROM retur WHERE idretur='$idr'");
